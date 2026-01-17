@@ -1,4 +1,9 @@
 package model;
+import java.time.LocalDateTime;
 
-public record Transactions(String id, LocalDateTime timestamp, double amount, String type) {
+public record Transaction(String id,
+                          LocalDateTime timestamp,
+                          String accountId,
+                          TransactionType type,
+                          double amount) {
 }

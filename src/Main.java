@@ -1,13 +1,32 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-  //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-  // to see how IntelliJ IDEA suggests fixing it.
-  IO.println(String.format("Hello and welcome!"));
+import producer.CsvProducer;
+import consumer.TransactionConsumer;
+import SharedBuffer.SharedBuffer;
 
-  for (int i = 1; i <= 5; i++) {
-    //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-    // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-    IO.println("i = " + i);
-  }
+
+void main() {
+    String csvFile = "data/transactions.csv";
+
+    SharedBuffer sharedBuffer = new SharedBuffer(3); // Buffer capacity of 3
+
+    // Start producer thread
+    Thread producerThread = new Thread(new CsvProducer(sharedBuffer, csvFile));
+    producerThread.setName("Producer-Thread");
+    producerThread.start();
+
+    // Start consumer thread
+    Thread consumerThread = new Thread(new TransactionConsumer(sharedBuffer));
+    consumerThread.setName("Consumer-Thread");
+    consumerThread.start();
+
+    // Wait for producer to finish
+    try {
+        producerThread.join();
+        System.out.println("\nProducer finished. Waiting for consumer to finish...");
+        Thread.sleep(2000); // Give consumer time to process remaining items
+        consumerThread.interrupt(); // Stop the consumer's infinite loop
+    } catch (InterruptedException e) {
+        System.err.println("Main thread interrupted: " + e.getMessage());
+    }
 }
+
+

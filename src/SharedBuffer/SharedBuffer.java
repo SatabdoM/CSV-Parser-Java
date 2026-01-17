@@ -1,14 +1,15 @@
-package Buffer;
+package SharedBuffer;
 
+import java.util.LinkedList;
 import java.util.Queue;
 
 public class SharedBuffer<T> {
     private final Queue<T> queue;
     private final int capacity;
 
-    public SharedBuffer(Queue<T> queue, int capacity) {
-        this.queue = queue;
+    public SharedBuffer(int capacity) {
         this.capacity = capacity;
+        this.queue = new LinkedList<>();
     }
 
     public synchronized void add(T item) {
@@ -17,6 +18,8 @@ public class SharedBuffer<T> {
                 wait();
             }
             queue.add(item);
+            System.out.println("Added: " + item);
+            Thread.sleep(2000);
             notifyAll();
         } catch (InterruptedException e) {
             System.out.println("Add operation interrupted");
@@ -24,7 +27,7 @@ public class SharedBuffer<T> {
         }
     }
 
-    public T remove() {
+    public synchronized T remove() {
         try {
             T item;
             while (queue.isEmpty()) {
@@ -47,6 +50,4 @@ public class SharedBuffer<T> {
     public int getCapacity() {
         return capacity;
     }
-
-
 }
