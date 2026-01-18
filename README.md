@@ -4,6 +4,9 @@ A sophisticated multi-threaded Java application that parses financial transactio
 
 ---
 
+<img width="3240" height="2441" alt="image" src="https://github.com/user-attachments/assets/d8eba98e-5872-4183-90b5-ee1e37bff7ce" />
+
+
 ## 📐 Architecture Overview
 
 This project demonstrates an **enterprise-grade distributed systems architecture** pattern suitable for real-world scenarios involving concurrent data processing, I/O operations, analytics, and resource management.
