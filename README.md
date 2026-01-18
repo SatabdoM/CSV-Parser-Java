@@ -4,7 +4,8 @@ A sophisticated multi-threaded Java application that parses financial transactio
 
 ---
 
-<img width="3240" height="2441" alt="image" src="https://github.com/user-attachments/assets/d8eba98e-5872-4183-90b5-ee1e37bff7ce" />
+<img width="3240" height="2441" alt="image" src="https://github.com/user-attachments/assets/58dd1fb0-4952-477f-bdce-b9c796f0b6a7" />
+
 
 
 ## 📐 Architecture Overview
